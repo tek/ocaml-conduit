@@ -1,0 +1,49 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("//:bzl/library.bzl", "lib", "mod", "sig")
+
+copy_file(
+    name = "private_ssl_ml",
+    src = "private_ssl.dummy.ml",
+    out = "private_ssl.ml",
+)
+
+copy_file(
+    name = "v1_mli",
+    src = "v1.dummy.mli",
+    out = "v1.mli",
+)
+
+copy_file(
+    name = "v2_mli",
+    src = "v2.dummy.mli",
+    out = "v2.mli",
+)
+
+copy_file(
+    name = "v3_mli",
+    src = "v3.dummy.mli",
+    out = "v3.mli",
+)
+
+lib(
+    name = "lib-conduit-async",
+    deps_opam = [
+        "async",
+        "ipaddr-sexp",
+        "ipaddr.unix",
+        "ppx_here",
+    ],
+    modules = dict(
+        conduit_async = mod(":v1", ":v2", ":v3"),
+        private_ssl = mod(),
+        v1 = sig(":s", ":private_ssl"),
+        v2 = sig(":s", ":private_ssl"),
+        v3 = sig(":s", ":private_ssl"),
+        s = mod(),
+    ),
+    deps = [
+        "//src/conduit:lib-conduit",
+        "@uri//lib:lib-uri",
+        "@uri//etc:services_short",
+    ],
+)

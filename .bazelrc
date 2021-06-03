@@ -1,0 +1,2 @@
+try-import user.bazelrc
+startup --output_base bazel

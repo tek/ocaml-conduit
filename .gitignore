@@ -3,3 +3,8 @@ _opam
 .*.swp
 *.install
 .merlin
+/bazel/
+/bazel-bin
+/bazel-out
+/bazel-testlogs
+/bazel-ocaml-conduit

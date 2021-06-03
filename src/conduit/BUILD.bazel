@@ -1,0 +1,23 @@
+load("//:bzl/library.bzl", "lib", "mod", "sig")
+
+lib(
+    name = "lib-conduit",
+    deps_opam = [
+        "sexplib",
+        "ipaddr",
+        "ipaddr-sexp",
+        "astring",
+    ],
+    opts = [
+        "-w",
+        "-33",
+    ],
+    modules = dict(
+        conduit = sig(),
+        conduit_trie = sig(),
+        resolver = sig(":conduit", ":conduit_trie"),
+    ),
+    deps = [
+        "@uri//lib:lib-uri",
+    ],
+)
