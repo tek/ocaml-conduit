@@ -1,7 +1,7 @@
-load("//:bzl/library.bzl", "lib", "mod", "sig")
+load("//bzl:library.bzl", "lib", "mod", "sig")
 
 lib(
-    name = "lib-conduit",
+    name = "conduit",
     deps_opam = [
         "sexplib",
         "ipaddr",

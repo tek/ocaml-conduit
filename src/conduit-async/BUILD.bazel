@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
-load("//:bzl/library.bzl", "lib", "mod", "sig")
+load("//bzl:library.bzl", "lib", "mod", "sig")
 
 copy_file(
     name = "private_ssl_ml",
@@ -26,7 +26,7 @@ copy_file(
 )
 
 lib(
-    name = "lib-conduit-async",
+    name = "conduit-async",
     deps_opam = [
         "async",
         "ipaddr-sexp",

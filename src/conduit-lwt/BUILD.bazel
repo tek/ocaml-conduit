@@ -1,0 +1,16 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("//bzl:library.bzl", "lib", "sig")
+
+lib(
+    name = "conduit-lwt",
+    deps_opam = [
+        "lwt",
+    ],
+    modules = dict(
+        resolver_lwt = sig(ppx = dict(name = "sexp")),
+    ),
+    deps = [
+        "//src/conduit:lib-conduit",
+    ],
+    ppx = dict(sexp = ["ppx_sexp_conv"]),
+)

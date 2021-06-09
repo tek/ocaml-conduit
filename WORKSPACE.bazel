@@ -1,36 +1,19 @@
 workspace(name = "cohttp")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("//bzl:deps.bzl", "conduit_deps")
 
-http_archive(
-    name = "bazel_skylib",
-    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
-    urls = [
-        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-    ],
-)
+conduit_deps()
 
-http_archive(
-    name = "obazl_rules_ocaml",
-    sha256 = "ae8dede0facda7b7915097c382c70e853c6563b793ead2220d703572a2be2b95",
-    strip_prefix = "rules_ocaml-a9f16f7267bc97f7d68e9593565d2fee787b28fb",
-    urls = [
-        "https://github.com/tek/rules_ocaml/archive/a9f16f7267bc97f7d68e9593565d2fee787b28fb.tar.gz",
-    ],
-)
+load("//bzl:transitive.bzl", "conduit_transitive_deps")
 
-http_archive(
-    name = "uri",
-    sha256 = "7e18d78f6c7264de22e9af9ff5e4ec8da5e56dca93241c7223d911da2c8ca78b",
-    strip_prefix = "ocaml-uri-911c3d24e573f8dcfb58f7ae4ceea4c41f76e325",
-    urls = [
-        "https://github.com/tek/ocaml-uri/archive/911c3d24e573f8dcfb58f7ae4ceea4c41f76e325.tar.gz",
-    ],
-)
+conduit_transitive_deps()
+
+load("//bzl:setup.bzl", "conduit_setup")
+
+conduit_setup()
 
 load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", "ocaml_configure")
-load("//:bzl/opam.bzl", "opam")
+load("//bzl:opam.bzl", "opam")
 
 ocaml_configure(
     build = "4.12",
