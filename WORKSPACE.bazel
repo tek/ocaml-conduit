@@ -16,6 +16,6 @@ load("@obazl_rules_ocaml//ocaml:bootstrap.bzl", "ocaml_configure")
 load("//bzl:opam.bzl", "opam")
 
 ocaml_configure(
-    build = "4.12",
+    build = "4.10",
     opam = opam,
 )

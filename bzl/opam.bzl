@@ -8,10 +8,10 @@ opam_pkgs = {
 opam = OpamConfig(
     version = "2.0",
     builds = {
-        "4.12": BuildConfig(
+        "4.10": BuildConfig(
             default = True,
-            switch = "4.12",
-            compiler = "4.12",
+            switch = "4.10",
+            compiler = "4.10",
             packages = opam_pkgs,
             install = True,
         ),
