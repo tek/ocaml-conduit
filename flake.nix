@@ -26,7 +26,9 @@
     main = system:
     let
       pkgs = import nixpkgs { inherit system; };
+
       opam = "${pkgs.opam}/bin/opam";
+
       opamPkg = name: pkgs.writeScript "install-${name}" ''
         installed=$(${opam} show -f installed-version ${name})
         if [[ $installed == '--' ]]
@@ -36,7 +38,8 @@
           echo ${name} version: $installed
         fi
       '';
-    installDeps = 
+
+    installDeps =
       pkgs.writeScript "install-deps" ''
         ${opam} init --no-opamrc --no-setup
         eval $(${opam} env)
@@ -48,6 +51,7 @@
         eval $(${opam} env)
         ${pkgs.lib.strings.concatMapStringsSep "\n" opamPkg deps}
       '';
+
     in rec {
       apps = {
         install = {
