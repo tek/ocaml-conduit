@@ -7,10 +7,11 @@ lib(
         "lwt",
     ],
     modules = dict(
-        resolver_lwt = sig(ppx = dict(name = "sexp")),
+        resolver_lwt = sig(),
     ),
     deps = [
         "//src/conduit:lib-conduit",
     ],
-    ppx = dict(sexp = ["ppx_sexp_conv"]),
+    ppx = dict(deps = ["ppx_sexp_conv"]),
+    ns = False,
 )

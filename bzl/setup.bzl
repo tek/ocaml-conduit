@@ -1,4 +1,4 @@
-load("@uri//bzl:deps_setup.bzl", "uri_deps_setup")
+load("@uri//bzl:deps_setup.bzl", "uri_setup")
 
 def conduit_setup():
-    uri_deps_setup()
+    uri_setup()

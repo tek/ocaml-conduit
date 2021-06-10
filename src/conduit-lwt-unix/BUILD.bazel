@@ -1,0 +1,61 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("//bzl:library.bzl", "lib", "mod", "sig")
+
+copy_file(
+    name = "conduit_lwt_launchd_ml",
+    src = "conduit_lwt_launchd.dummy.ml",
+    out = "conduit_lwt_launchd.ml",
+)
+
+copy_file(
+    name = "conduit_lwt_unix_ssl_ml",
+    src = "conduit_lwt_unix_ssl.real.ml",
+    out = "conduit_lwt_unix_ssl.ml",
+)
+
+copy_file(
+    name = "conduit_lwt_unix_ssl_mli",
+    src = "conduit_lwt_unix_ssl.real.mli",
+    out = "conduit_lwt_unix_ssl.mli",
+)
+
+copy_file(
+    name = "conduit_lwt_tls_ml",
+    src = "conduit_lwt_tls.real.ml",
+    out = "conduit_lwt_tls.ml",
+)
+
+copy_file(
+    name = "conduit_lwt_tls_mli",
+    src = "conduit_lwt_tls.real.mli",
+    out = "conduit_lwt_tls.mli",
+)
+
+lib(
+    name = "conduit-lwt-unix",
+    deps_opam = [
+        "lwt.unix",
+        "lwt_ssl",
+        "logs",
+        "async",
+        "ipaddr-sexp",
+        "ipaddr.unix",
+        "tls.lwt",
+        "ca-certs",
+    ],
+    modules = dict(
+        conduit_lwt_launchd = mod(),
+        conduit_lwt_server = sig(),
+        conduit_lwt_unix = sig(":conduit_lwt_tls", ":conduit_lwt_unix_ssl", ":conduit_lwt_launchd"),
+        conduit_lwt_unix_ssl = sig(":conduit_lwt_server"),
+        conduit_lwt_tls = sig(":conduit_lwt_server"),
+        resolver_lwt_unix = sig(),
+    ),
+    deps = [
+        "//src/conduit:lib-conduit",
+        "//src/conduit-lwt:lib-conduit-lwt",
+        "@uri//etc:services_short",
+    ],
+    ppx = dict(deps = ["ppx_sexp_conv"]),
+    ns = False,
+)

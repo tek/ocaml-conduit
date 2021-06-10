@@ -19,15 +19,7 @@ def copy_interface(name, out):
         out = "__obazl/" + out + ".mli",
     )
 
-def ppx_args(name, tags = []):
-    return dict(
-        ppx = ":ppx_" + name,
-        ppx_print = "@ppx//print:text",
-        ppx_tags = [],
-    )
-
-def sig_module(name, conf, deps = [], ppx = False, **kw):
-    use_ppx = "ppx" in conf
+def sig_module(name, conf, deps = [], use_ppx = False, **kw):
     struct = conf.get("mod", name + ".ml")
     sig = name if conf.get("sigonly", False) else conf.get("sig_src", name + "_sig" if conf.get("sig", False) else None)
     all_deps = deps + conf.get("deps", [])
@@ -38,9 +30,7 @@ def sig_module(name, conf, deps = [], ppx = False, **kw):
             deps = all_deps,
             **kw
         )
-    ppx_kw = ppx_args(**conf["ppx"]) if use_ppx else dict()
-    kw.update(ppx_kw)
-    cons = ppx_module if ppx else ocaml_module
+    cons = ppx_module if use_ppx else ocaml_module
     if not conf.get("sigonly"):
         cons(
             name = name,
@@ -51,19 +41,28 @@ def sig_module(name, conf, deps = [], ppx = False, **kw):
         )
     return name
 
-def ppx_exe(ident, deps):
+def ppx_exe(name, deps):
     ppx_executable(
-        name = "ppx_" + ident,
+        name = "ppx_" + name,
         deps_opam = deps,
         main = "//bzl:ppx_driver",
     )
 
+def ppx_args(name, tags = []):
+    return dict(
+        ppx = ":ppx_" + name,
+        ppx_print = "@ppx//print:text",
+        ppx_tags = tags,
+    )
+
 def lib(name, modules, ns = True, deps = [], ppx = dict(), ppx_deps = False, **kw):
-    use_ppx = ppx_deps or len(ppx) != 0
-    [ppx_exe(ident, deps) for (ident, deps) in ppx.items()]
+    use_ppx = ppx_deps or ppx
+    if ppx:
+        ppx_exe(name, ppx.get("deps", []))
+        kw.update(ppx_args(name, tags = ppx.get("tags", [])))
     lib_name = "lib-" + name
     ns_name = "#" + name.capitalize().replace("-", "_")
-    targets = [sig_module(mod_name, conf, deps, ppx = use_ppx, **kw) for (mod_name, conf) in modules.items()]
+    targets = [sig_module(mod_name, conf, deps = deps, use_ppx = use_ppx, **kw) for (mod_name, conf) in modules.items()]
     cons = ppx_library if use_ppx else ocaml_library
     cons_ns = ppx_ns_library if use_ppx else ocaml_ns_library
     cons(

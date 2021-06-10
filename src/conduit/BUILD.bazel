@@ -20,4 +20,6 @@ lib(
     deps = [
         "@uri//lib:lib-uri",
     ],
+    ppx = dict(deps = ["ppx_sexp_conv"]),
+    ns = False,
 )
