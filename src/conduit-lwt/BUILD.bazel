@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
-load("//bzl:library.bzl", "lib", "sig")
+load("@obazl_rules_ocaml//dsl:library.bzl", "lib", "mod", "sig")
 
 lib(
     name = "conduit-lwt",

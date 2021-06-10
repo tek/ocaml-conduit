@@ -5,9 +5,9 @@ def conduit_deps():
     maybe(
         http_archive,
         "uri",
-        sha256 = "fa732fb3ae7f97d7b6bd0506b60d3d7e6a2cf85840160a28c78b938170161d96",
-        strip_prefix = "ocaml-uri-cce0f6742741e378be136baf30fecbec07c584ed",
+        sha256 = "c3501b501f76a94f3e0181f031cdcf137e5a44111e21834416af3ca250748a78",
+        strip_prefix = "ocaml-uri-e2efd4143b189240c6c4b121b586827d3ebd2113",
         urls = [
-            "https://github.com/tek/ocaml-uri/archive/cce0f6742741e378be136baf30fecbec07c584ed.tar.gz",
+            "https://github.com/tek/ocaml-uri/archive/e2efd4143b189240c6c4b121b586827d3ebd2113.tar.gz",
         ],
     )
