@@ -43,7 +43,7 @@
       pkgs.writeScript "install-deps" ''
         ${opam} init --no-opamrc --no-setup
         eval $(${opam} env)
-        current=$(opam switch show)
+        current=$(${opam} switch show)
         if [[ $current != "4.10" ]]
         then
           ${opam} switch create 4.10 ocaml-base-compiler.4.10.2
