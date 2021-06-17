@@ -1,11 +1,7 @@
 {
   description = "OCaml: conduit";
 
-  inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
-    flake-utils.url = github:numtide/flake-utils;
-    obazl.url = github:tek/rules_ocaml;
-  };
+  inputs.obazl.url = github:tek/rules_ocaml;
 
   outputs = { obazl, ... }:
   let

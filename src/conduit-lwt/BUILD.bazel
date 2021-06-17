@@ -12,6 +12,6 @@ lib(
     deps = [
         "//src/conduit:lib-conduit",
     ],
-    ppx = dict(deps = ["ppx_sexp_conv"]),
-    ns = False,
+    ppx = ["ppx_sexp_conv"],
+    wrapped = False,
 )

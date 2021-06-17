@@ -43,7 +43,8 @@ lib(
     ),
     deps = [
         "//src/conduit:lib-conduit",
-        "@uri//lib:lib-uri",
-        "@uri//etc:services_short",
+        "@uri//lib:#Uri",
+        "@uri//etc:#Services_short",
     ],
+    ppx = ["ppx_here", "ppx_sexp_conv"]
 )

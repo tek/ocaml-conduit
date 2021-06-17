@@ -54,8 +54,8 @@ lib(
     deps = [
         "//src/conduit:lib-conduit",
         "//src/conduit-lwt:lib-conduit-lwt",
-        "@uri//etc:services_short",
+        "@uri//etc:#Services_short",
     ],
-    ppx = dict(deps = ["ppx_sexp_conv"]),
-    ns = False,
+    ppx = ["ppx_sexp_conv"],
+    wrapped = False,
 )

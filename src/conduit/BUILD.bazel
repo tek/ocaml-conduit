@@ -18,8 +18,8 @@ lib(
         resolver = sig(":conduit", ":conduit_trie"),
     ),
     deps = [
-        "@uri//lib:lib-uri",
+        "@uri//lib:#Uri",
     ],
-    ppx = dict(deps = ["ppx_sexp_conv"]),
-    ns = False,
+    ppx = ["ppx_sexp_conv"],
+    wrapped = False,
 )

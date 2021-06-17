@@ -2,7 +2,7 @@ load("@obazl_rules_ocaml//ocaml:providers.bzl", "BuildConfig", "OpamConfig")
 
 # if this is empty, OBazl fails
 opam_pkgs = {
-    "json-data-encoding": [],
+    "ocaml": [],
 }
 
 opam = OpamConfig(
